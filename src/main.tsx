@@ -1,10 +1,21 @@
-import { StrictMode } from 'react'
+import React from 'react';
 import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.tsx'
+import {createBrowserRouter, RouterProvider } from 'react-router-dom'
+
+import './App.css'
+import Felvetel from './components/Felvetel';
+
+const router = createBrowserRouter([
+  {
+    path: "/felvetel",
+    element: <Felvetel />,
+  },
+
+]);
+
 
 createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
+  <React.StrictMode>
+    <RouterProvider router={router} />
+  </React.StrictMode>
 )
