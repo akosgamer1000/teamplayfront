@@ -1,4 +1,5 @@
 import { useState } from "react"
+import Menu from "./Menu";
 
 export default function Felvetel() {
 
@@ -44,8 +45,10 @@ export default function Felvetel() {
         }
     };
 
-    return <form onSubmit={handleSubmit}>
-        <h1>E-mail felvétele</h1>
+    return <>
+        <Menu />
+        <form onSubmit={handleSubmit}>
+            <h1>E-mail felvétele</h1>
 
         <label htmlFor="sender">Feladó:</label>
         <input type="text" name="sender" value={sender} onChange={e => setSender(e.target.value)} required/>
@@ -73,5 +76,6 @@ export default function Felvetel() {
         <button type="submit">Küldés</button>
 
 
-    </form>
+        </form>
+    </>
 }
