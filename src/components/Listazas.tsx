@@ -9,8 +9,8 @@ export default function Listazas() {
 
     useEffect(() => {
         fetchEmails();
-    }, [emails]);
-    
+    }, []);
+
     const fetchEmails = async () => {
         try {
             const response = await fetch('http://localhost:3000/email');
@@ -21,6 +21,7 @@ export default function Listazas() {
             console.error('Error fetching emails:', error);
             setLoading(false);
         }
+       
     }
     const shortenSubject = (subject: string) => {
         return subject.length > 20 ? subject.substring(0, 20) + "..." : subject;
@@ -28,6 +29,11 @@ export default function Listazas() {
 
     const shortenContent = (content: string) => {
         return content.length > 20 ? content.substring(0, 20) + "..." : content;
+    }
+
+    const deleteEmail = async (id: number) => {
+        await fetch(`http://localhost:3000/email/${id}`, {method: "DELETE"});
+        fetchEmails();
     }
 
     return <>
@@ -39,7 +45,7 @@ export default function Listazas() {
                     <th>Címzett</th>
                     <th>Tárgy</th>
                     <th>Üzenet</th>
-                    <th>Megtekintés</th>
+                    
                 </tr>
             </thead>
             <tbody>
@@ -50,6 +56,7 @@ export default function Listazas() {
                         <td>{shortenSubject(email.subject)}</td>
                         <td>{shortenContent(email.content)}</td>
                         <td><button onClick={() => navigate("/viewEmail", { state: email })}>Megtekintés</button></td>
+                        <td><button onClick={() => deleteEmail(email.id)}>Törlés</button></td>
                     </tr>
                 ))}
             </tbody>
